@@ -13,10 +13,59 @@ datasource db {
 }
 
 model User {
-  id        String   @id
+  id        String     @id @default(cuid())
   firstName String
   lastName  String
-  email     String
+  email     String     @unique
   avatarUrl String?
-  createAt  DateTime @default(now())
+  createdAt DateTime   @default(now())
+  regiments Regiment[]
+  files     Conflict[]
+  createAt  DateTime   @default(now())
+  updateAt  DateTime   @updatedAt
+}
+
+model Regiment {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  badgeUrl    String
+  images      Image[]
+  createdAt   DateTime @default(now())
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+  files       File[]
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+model File {
+  id         String   @id @default(cuid())
+  url        String
+  regimentId String
+  regiment   Regiment @relation(fields: [regimentId], references: [id])
+  createAt   DateTime @default(now())
+  updateAt   DateTime @updatedAt
+}
+
+model Conflict {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  images      Image[]
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+model Image {
+  id         String   @id @default(cuid())
+  url        String
+  conflictId String
+  conflict   Conflict @relation(fields: [conflictId], references: [id])
+  regimentId String
+  regiment   Regiment @relation(fields: [regimentId], references: [id])
+  createAt   DateTime @default(now())
+  updateAt   DateTime @updatedAt
 }
