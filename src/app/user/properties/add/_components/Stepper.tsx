@@ -11,7 +11,7 @@ interface Props {
 const Stepper = (props: Props) => {
     return (
 
-        <div className={cn("flex items-center justify-around props.className")}>
+        <div className={cn("flex items-center justify-around props.className ps-3 pe-3 pt-4")}>
             {props.items.map((item, index) => <>
                     <div className="flex flex-col items-center" key={item.label}>
                         <div className={cn("rounded-full w-6 h6 flex justify-center items-center transition", {
@@ -22,8 +22,9 @@ const Stepper = (props: Props) => {
                         })}
                              {...(index < props.activeItem ? {onClick: () => props.setActiveItem(index)} : {})}
                         >{index + 1}</div>
-                        <p>{item.label}</p>
+                        <p className="text-xs uppercase pt-2">{item.label}</p>
                     </div>
+                    {index !== props.items.length - 1 && (
                     <div
                         key={"1" + index}
                         className={cn(
@@ -34,6 +35,7 @@ const Stepper = (props: Props) => {
                             }
                         )}
                     ></div>
+                    )}
                 </>
             )
             }

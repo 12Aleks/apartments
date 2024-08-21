@@ -18,54 +18,68 @@ model User {
   lastName  String
   email     String     @unique
   avatarUrl String?
-  createdAt DateTime   @default(now())
-  regiments Regiment[]
+  units     Unit[]
   files     Conflict[]
-  createAt  DateTime   @default(now())
-  updateAt  DateTime   @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
-model Regiment {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  badgeUrl    String
-  images      Image[]
-  createdAt   DateTime @default(now())
-  authorId    String
-  author      User     @relation(fields: [authorId], references: [id])
-  files       File[]
-  createAt    DateTime @default(now())
-  updateAt    DateTime @updatedAt
+model Unit {
+  id               Int              @id @default(autoincrement())
+  title            String
+  description      String
+  badgeUrl         String
+  organizationId   Int
+  unitOrganization UnitOrganization @relation(fields: [organizationId], references: [id])
+  typeId           Int
+  unitType         UnitType         @relation(fields: [typeId], references: [id])
+  authorId         String
+  author           User             @relation(fields: [authorId], references: [id])
+  files            File[]
+  images           Image[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model UnitType {
+  id    Int    @id @default(autoincrement())
+  value String
+  units Unit[]
+}
+
+model UnitOrganization {
+  id                Int    @id @default(autoincrement())
+  value             String
+  unitsOrganization Unit[]
 }
 
 model File {
-  id         String   @id @default(cuid())
-  url        String
-  regimentId String
-  regiment   Regiment @relation(fields: [regimentId], references: [id])
-  createAt   DateTime @default(now())
-  updateAt   DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  url       String
+  unitId    Int
+  unit      Unit     @relation(fields: [unitId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Conflict {
-  id          String   @id @default(cuid())
+  id          Int      @id @default(autoincrement())
   title       String
   description String
   images      Image[]
   authorId    String
   author      User     @relation(fields: [authorId], references: [id])
-  createAt    DateTime @default(now())
-  updateAt    DateTime @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Image {
-  id         String   @id @default(cuid())
+  id         Int      @id @default(autoincrement())
   url        String
-  conflictId String
+  conflictId Int
   conflict   Conflict @relation(fields: [conflictId], references: [id])
-  regimentId String
-  regiment   Regiment @relation(fields: [regimentId], references: [id])
-  createAt   DateTime @default(now())
-  updateAt   DateTime @updatedAt
+  unitId     Int
+  unit       Unit     @relation(fields: [unitId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

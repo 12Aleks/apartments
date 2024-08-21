@@ -2,7 +2,6 @@
 
 import {User} from "@prisma/client";
 import prisma from "@/lib/prisma";
-import {user} from "@nextui-org/react";
 
 export async function getUserById(id: string): Promise<User> {
     return prisma.user.findUnique({

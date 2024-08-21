@@ -7,7 +7,6 @@ import {
 import { Button } from "@nextui-org/react";
 import React from "react";
 import UserProfilePanel from "./UserProfilePanel";
-import prisma from "@/lib/prisma";
 import {getUserById} from "@/lib/actions/user";
 
 const signInPanel = async () => {
@@ -15,12 +14,15 @@ const signInPanel = async () => {
 
     if (await isAuthenticated()) {
         const user = await getUser();
+        console.log("User",user)
         const dbUser = await getUserById(user? user.id: '');
         // const dbUser = await prisma.user.findUnique({
         //     where: {
         //         id: user?.id,
         //     },
         // });
+
+        console.log(dbUser);
 
         return <>{dbUser!! && <UserProfilePanel user={dbUser} />}</>;
     }

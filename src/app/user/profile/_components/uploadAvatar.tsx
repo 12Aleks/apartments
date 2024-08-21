@@ -53,9 +53,9 @@ const UploadAvatar = ({userId}: IProps) => {
                                         onClose()
                                         return
                                     }
-                                    const avatarUtl = await uploadAvatar(imageUrl);
+                                    const avatarUrl = await uploadAvatar(imageUrl);
 
-                                    const result = await updateAvatarUrl(avatarUtl, userId);
+                                    const result = await updateAvatarUrl(avatarUrl, userId);
 
                                     router.refresh()
 

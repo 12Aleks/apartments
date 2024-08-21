@@ -1,10 +1,16 @@
 import React from 'react';
-import AddPropertyForm from "@/app/user/properties/add/_components/AddPropertyForm";
+import AddPropertyForm from "./_components/AddPropertyForm";
+import prisma from "@/lib/prisma";
 
-const AddPage = () => {
+const AddPage = async () => {
+    const [unitOrganization, unitType] = await Promise.all([
+        prisma.unitOrganization.findMany(),
+        prisma.unitType.findMany()
+    ]);
+
     return (
         <div>
-            <AddPropertyForm/>
+            <AddPropertyForm organization={unitOrganization} types={unitType}/>
         </div>
     );
 };
