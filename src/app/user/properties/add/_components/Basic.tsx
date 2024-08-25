@@ -1,6 +1,6 @@
 import {UnitOrganization, UnitType} from "@prisma/client";
 import {Card} from "@nextui-org/card";
-import {cn, Input, Textarea, Select, SelectItem} from "@nextui-org/react";
+import {cn, Input, Textarea, Select, SelectItem, Image} from "@nextui-org/react";
 
 
 
@@ -13,6 +13,13 @@ interface Props{
 const Basic = (props: Props) => {
     return (
         <Card className={cn("gap-3 mt-5 p-3 grid grid-cols-1 md:grid-cols-2 border-0")}>
+            <Image
+                isBlurred
+                width={240}
+                src={ "/no_image.jpg" }
+                alt="badge"
+                className="border ml-auto mr-auto mb-4 block "
+            />
             <Input label="title" className="md:col-span-2" />
             <Textarea label="description" className="md:col-span-2" />
             <div className="md:col-span-1 flex flex-col gap-3">

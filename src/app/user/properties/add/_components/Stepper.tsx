@@ -1,6 +1,5 @@
 import {cn} from "@nextui-org/react";
 
-
 interface Props {
     items: { label: string } [];
     activeItem: number;

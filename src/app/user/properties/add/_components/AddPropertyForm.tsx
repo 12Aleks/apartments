@@ -22,6 +22,7 @@ const stepsList = [
 interface Props{
     organization: UnitOrganization[]
     types: UnitType[]
+    badgeUrl?: string
 }
 
 const AddPropertyForm = (props: Props) => {

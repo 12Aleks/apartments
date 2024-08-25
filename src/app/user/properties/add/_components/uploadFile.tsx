@@ -12,17 +12,17 @@ import {
     Image
 } from "@nextui-org/react";
 import FileInput from "@/app/components/fileUpload";
-import {uploadAvatar} from "@/lib/upload";
-import {updateAvatarUrl} from "@/lib/actions/user";
+import {uploadBadge} from "@/lib/upload";
 import {useRouter} from "next/navigation";
+import {updateBadgeUrl} from "@/lib/actions/properties";
 
 
 interface IProps {
-    userId: string
+    unitId: string
 }
 
 
-const UploadAvatar = ({userId}: IProps) => {
+const UploadFile = ({userId}: IProps) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [imageUrl, setImageUrl] = useState<File>();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,16 +52,16 @@ const UploadAvatar = ({userId}: IProps) => {
                                         onClose()
                                         return
                                     }
-                                    const avatarUrl = await uploadAvatar(imageUrl);
+                                    const badgeUrl = await uploadBadge(imageUrl);
 
-                                    const result = await updateAvatarUrl(avatarUrl, userId);
+                                    const result = await updateBadgeUrl(badgeUrl, unitId);
 
                                     router.refresh()
 
                                     setIsSubmitting(false)
                                     onClose()
                                 }}>
-                                    Change Avatar
+                                    Change Badge
                                 </Button>
                             </ModalFooter>
                         </>
@@ -72,4 +72,4 @@ const UploadAvatar = ({userId}: IProps) => {
     );
 };
 
-export default UploadAvatar;
+export default UploadFile;

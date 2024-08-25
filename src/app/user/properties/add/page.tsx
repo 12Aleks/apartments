@@ -3,14 +3,15 @@ import AddPropertyForm from "./_components/AddPropertyForm";
 import prisma from "@/lib/prisma";
 
 const AddPage = async () => {
-    const [unitOrganization, unitType] = await Promise.all([
+    const [unitOrganization, unitType, badgeUrl] = await Promise.all([
         prisma.unitOrganization.findMany(),
-        prisma.unitType.findMany()
+        prisma.unitType.findMany(),
+
     ]);
 
     return (
         <div>
-            <AddPropertyForm organization={unitOrganization} types={unitType}/>
+            <AddPropertyForm organization={unitOrganization} types={unitType} />
         </div>
     );
 };
