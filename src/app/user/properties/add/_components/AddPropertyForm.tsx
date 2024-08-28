@@ -33,7 +33,7 @@ const AddPropertyForm = (props: Props) => {
         <div>
             <Stepper items={stepsList} activeItem={step} setActiveItem={setStep}/>
             <form className="pl-3 pr-3">
-                <Basic organizationTypes={props.organization} types={props.types}/>
+                <Basic next={() => setStep(prev => prev + 1)} organizationTypes={props.organization} types={props.types}/>
             </form>
         </div>
     );
