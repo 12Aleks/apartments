@@ -17,16 +17,18 @@ const Basic = (props: Props) => {
     const handleNext = () => props.next();
 
     return (
-        <Card className={cn("gap-3 mt-5 p-3 grid grid-cols-1 md:grid-cols-2 border-0")}>
+        <Card className={cn("gap-3 mt-5 p-3 grid grid-cols-1 md:grid-cols-2 border-0", props.className)}>
             <div className="col-span-2 flex justify-center relative">
-                <Image
-                    isBlurred
-                    width={240}
-                    src={ "/no_image.jpg" }
-                    alt="badge"
-                    className="border mb-4 relative z-0"
-                />
-                <PlusCircleIcon color="lightgray" className="size-8 absolute z-10 bottom-0"/>
+               <div className="relative block pl-2 pr-2 pt-2">
+                   <Image
+                       isBlurred
+                       width={240}
+                       src={ "/no_image.jpg" }
+                       alt="badge"
+                       className="border mb-4 relative z-0"
+                   />
+                   <PlusCircleIcon color="lightgray" className="size-8 absolute z-10 top-0 right-0"/>
+               </div>
             </div>
             <Input label="title" className="md:col-span-2" />
             <Textarea label="description" className="md:col-span-2" />
@@ -48,7 +50,7 @@ const Basic = (props: Props) => {
                     ))}
                 </Select>
             </div>
-            <div className="flex justify-center col-span-2 gap-2">
+            <div className="flex justify-between col-span-2 gap-2 mt-5">
                 <Button
                     isDisabled
                     startContent={<ChevronLeftIcon className="w-6" />}
