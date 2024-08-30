@@ -30,7 +30,7 @@ const UploadAvatar = ({userId}: IProps) => {
 
     return (
         <div>
-            <button onClick={onOpen}>
+            <button type="button" onClick={onOpen}>
                 <PencilIcon className="w-6 text-slate-400 hover:text-slate-600 transition-colors"/>
             </button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

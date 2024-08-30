@@ -31,7 +31,7 @@ const UserProfilePanel = ({user}: IUserProfilePanelProps) => {
                     <Link href="/user/profile">Profile</Link>
                 </DropdownItem>
                 <DropdownItem>
-                    <Link href="/user/properties">Properties</Link>
+                    <Link href="/user/units">Units</Link>
                 </DropdownItem>
                 <DropdownItem key="logout" color="danger">
                     <LogoutLink>

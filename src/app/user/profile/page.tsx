@@ -34,7 +34,7 @@ const ProfilePage = async () => {
                     <Attribute title="Name" value={`${dbUser?.firstName} ${dbUser?.lastName}`}/>
                     <Attribute title="Email" value={dbUser?.email}/>
                     <Attribute title="Registered On" value={dbUser?.createdAt?.toLocaleDateString()}/>
-                    <Attribute title="Properties Posted" value={1}/>
+                    <Attribute title="Units Posted" value={1}/>
                 </div>
             </Card>
         </div>

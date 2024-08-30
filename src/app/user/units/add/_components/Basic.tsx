@@ -1,7 +1,11 @@
+"use client";
 import {UnitOrganization, UnitType} from "@prisma/client";
+
 import {Card} from "@nextui-org/card";
-import {cn, Input, Textarea, Select, SelectItem, Image, Button} from "@nextui-org/react";
-import {ChevronLeftIcon, ChevronRightIcon, PlusCircleIcon} from "@heroicons/react/16/solid";
+import {cn, Input, Textarea, Select, SelectItem, Image, Button, useDisclosure} from "@nextui-org/react";
+import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/16/solid";
+import UploadFile from "@/app/user/units/add/_components/UploadFile";
+import BlockTitle from "@/app/components/blockTitle";
 
 
 
@@ -18,6 +22,7 @@ const Basic = (props: Props) => {
 
     return (
         <Card className={cn("gap-3 mt-5 p-3 grid grid-cols-1 md:grid-cols-2 border-0", props.className)}>
+            <BlockTitle title={"Basic"} className="md:col-span-2"/>
             <div className="col-span-2 flex justify-center relative">
                <div className="relative block pl-2 pr-2 pt-2">
                    <Image
@@ -27,7 +32,7 @@ const Basic = (props: Props) => {
                        alt="badge"
                        className="border mb-4 relative z-0"
                    />
-                   <PlusCircleIcon color="lightgray" className="size-8 absolute z-10 top-0 right-0"/>
+                   <UploadFile  />
                </div>
             </div>
             <Input label="title" className="md:col-span-2" />

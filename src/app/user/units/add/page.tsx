@@ -1,5 +1,5 @@
 import React from 'react';
-import AddPropertyForm from "./_components/AddPropertyForm";
+import AddUnitForm from "./_components/AddUnitForm";
 import prisma from "@/lib/prisma";
 
 const AddPage = async () => {
@@ -11,7 +11,7 @@ const AddPage = async () => {
 
     return (
         <div>
-            <AddPropertyForm organization={unitOrganization} types={unitType} />
+            <AddUnitForm organization={unitOrganization} types={unitType} />
         </div>
     );
 };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
     children?: React.ReactNode;
-    lablText?: string;
+    labelText?: string;
     onSelect?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     error?: string;
 }
@@ -12,7 +12,7 @@ const FileInput = React.forwardRef<HTMLInputElement, IProps>(
         {
             children,
             className,
-            lablText,
+            labelText,
             onChange,
             onSelect,
             error,
@@ -32,9 +32,9 @@ const FileInput = React.forwardRef<HTMLInputElement, IProps>(
 
         return (
             <div className={className}>
-                {lablText && (
+                {labelText && (
                     <label className="block text-gray-600 text-xs lg:text-sm xl:text-base mb-2" htmlFor="txt">
-                        {lablText}
+                        {labelText}
                     </label>
                 )}
                 <label className={" w-full  relative border flex  rounded-md cursor-pointer  group"}>
