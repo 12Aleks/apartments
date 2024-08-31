@@ -21,7 +21,7 @@ const Stepper = (props: Props) => {
                         })}
                              {...(index < props.activeItem ? {onClick: () => props.setActiveItem(index)} : {})}
                         >{index + 1}</div>
-                        <p className="text-xs uppercase pt-2">{item.label}</p>
+                        <p className="text-xs uppercase pt-2 tracking-wider">{item.label}</p>
                     </div>
                     {index !== props.items.length - 1 && (
                     <div

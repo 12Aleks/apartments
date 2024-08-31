@@ -24,9 +24,13 @@ const Pictures = (props: Props) => {
             <FileInput onSelect={(e) => props.setImages([(e as any).target.files[0], ...props.images])} />
             <div className="flex col-span-2 flex-wrap">
                 {
-                    props.images.map((image, i) => {
+                    props.images.map((image, index) => {
                         const srcUrl = URL.createObjectURL(image)
-                        return <PictureCard key={srcUrl} src={srcUrl} />
+                        return <PictureCard key={srcUrl}
+                                            src={srcUrl}
+                                            index={index}
+                                            onDelete={(i) => props.setImages([...props.images.slice(0, index), ...props.images.slice(index + 1)])}
+                        />
                     })
                 }
             </div>

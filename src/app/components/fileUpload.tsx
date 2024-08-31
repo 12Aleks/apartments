@@ -49,7 +49,7 @@ const FileInput = React.forwardRef<HTMLInputElement, IProps>(
                         />
                         Upload File
                     </div>
-                    <span className="mx-2">{fileName}</span>
+                    <div className="mx-2 flex items-center"><span>{fileName}</span></div>
                 </label>
                 {error && <p className="text-red-600 text-right animate-shake">{error}</p>}
             </div>
