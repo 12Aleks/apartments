@@ -7,6 +7,7 @@ import BlockTitle from "@/app/components/blockTitle";
 import PictureCard from "@/app/user/units/add/_components/PictureCard";
 
 interface Props {
+    title: string;
     next: () => void;
     prev: () => void;
     className?: string;
@@ -20,7 +21,7 @@ const Pictures = (props: Props) => {
 
     return (
         <Card className={cn("gap-3 mt-5 p-3 grid grid-cols-1 md:grid-cols-1 border-0", props.className)}>
-            <BlockTitle title={"Pictures"} className="md:col-span-2"/>
+            <BlockTitle title={props.title} className="md:col-span-2"/>
             <FileInput onSelect={(e) => props.setImages([(e as any).target.files[0], ...props.images])} />
             <div className="flex col-span-2 flex-wrap">
                 {

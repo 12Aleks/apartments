@@ -19,6 +19,7 @@ import {updateBadgeUrl} from "@/lib/actions/unit";
 
 interface IProps {
     unitId?: string
+    setBadgeImage: (badgeImage: File) => void
 }
 
 
@@ -26,7 +27,7 @@ const UploadFile = (props: IProps) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [imageUrl, setImageUrl] = useState<File>();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const router = useRouter();
+
 
     return (
         <div>
@@ -40,28 +41,13 @@ const UploadFile = (props: IProps) => {
                             <ModalHeader className="flex flex-col gap-1">Upload unit badge</ModalHeader>
                             <ModalBody>
                                 <FileInput onChange={e => setImageUrl((e as any).target.files[0])}/>
-                                {imageUrl && <Image src={URL.createObjectURL(imageUrl)} alt="img"/>}
                             </ModalBody>
                             <ModalFooter>
-                                <Button color="danger" variant="light" onPress={onClose}>
-                                    Close
-                                </Button>
                                 <Button isLoading={isSubmitting} color="primary" onPress={async () => {
-                                    setIsSubmitting(true)
-                                    if (!imageUrl) {
-                                        onClose()
-                                        return
-                                    }
-                                    const badgeUrl = await uploadBadge(imageUrl);
-
-                                    const result = await updateBadgeUrl(badgeUrl, 1);
-
-                                    router.refresh()
-
-                                    setIsSubmitting(false)
+                                    imageUrl && props.setBadgeImage(imageUrl);
                                     onClose()
                                 }}>
-                                    Change Badge
+                                    Save Badge
                                 </Button>
                             </ModalFooter>
                         </>

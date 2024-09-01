@@ -6,6 +6,7 @@ import FileInput from "@/app/components/fileUpload";
 import BlockTitle from "@/app/components/blockTitle";
 
 interface Props {
+    title: string;
     next: () => void;
     prev: () => void;
     className?: string;
@@ -20,7 +21,7 @@ const Files = (props: Props) => {
 
     return (
         <Card className={cn("gap-3 mt-5 p-3 grid grid-cols-1 md:grid-cols-1 border-0", props.className)}>
-            <BlockTitle title={"Files"} className="md:col-span-2"/>
+            <BlockTitle title={props.title} className="md:col-span-2"/>
             <FileInput/>
             <div className="flex justify-between col-span-2 gap-2 mt-5">
             <Button

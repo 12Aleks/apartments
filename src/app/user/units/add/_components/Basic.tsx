@@ -2,7 +2,7 @@
 import {UnitOrganization, UnitType} from "@prisma/client";
 
 import {Card} from "@nextui-org/card";
-import {cn, Input, Textarea, Select, SelectItem, Image, Button, useDisclosure} from "@nextui-org/react";
+import {cn, Input, Textarea, Select, SelectItem, Image, Button} from "@nextui-org/react";
 import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/16/solid";
 import UploadFile from "@/app/user/units/add/_components/UploadFile";
 import BlockTitle from "@/app/components/blockTitle";
@@ -11,10 +11,13 @@ import BlockTitle from "@/app/components/blockTitle";
 
 
 interface Props{
+    title: string;
     className?: string;
     organizationTypes: UnitOrganization[];
     types: UnitType[];
     next: () => void;
+    badge: File;
+    setBadge: (badge: File) => void;
 }
 
 const Basic = (props: Props) => {
@@ -22,17 +25,20 @@ const Basic = (props: Props) => {
 
     return (
         <Card className={cn("gap-3 mt-5 p-3 grid grid-cols-1 md:grid-cols-2 border-0", props.className)}>
-            <BlockTitle title={"Basic"} className="md:col-span-2"/>
+            <BlockTitle title={props.title} className="md:col-span-2"/>
             <div className="col-span-2 flex justify-center relative">
-               <div className="relative block pl-2 pr-2 pt-2">
+               <div className="relative ">
+
                    <Image
                        isBlurred
-                       width={240}
-                       src={ "/no_image.jpg" }
+                       width={250}
+                       height={250}
+                       src={ props.badge ? URL.createObjectURL(props.badge) : "/no_image.jpg" }
                        alt="badge"
-                       className="border mb-4 relative z-0"
+                       className="border mb-4 relative z-0
+                       object-contain object-center "
                    />
-                   <UploadFile  />
+                   <UploadFile setBadgeImage={(data) => props.setBadge(data)}/>
                </div>
             </div>
             <Input label="title" className="md:col-span-2" />

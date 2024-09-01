@@ -33,6 +33,8 @@ model Unit {
   unitOrganization UnitOrganization @relation(fields: [organizationId], references: [id])
   typeId           Int
   unitType         UnitType         @relation(fields: [typeId], references: [id])
+  awardsId         Int
+  awardsList       Awards           @relation(fields: [awardsId], references: [id])
   authorId         String
   author           User             @relation(fields: [authorId], references: [id])
   files            File[]
@@ -45,6 +47,12 @@ model UnitType {
   id    Int    @id @default(autoincrement())
   value String
   units Unit[]
+}
+
+model Awards {
+  id     Int    @id @default(autoincrement())
+  value  String
+  awards Unit[]
 }
 
 model UnitOrganization {
