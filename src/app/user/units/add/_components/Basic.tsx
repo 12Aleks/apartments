@@ -28,7 +28,6 @@ const Basic = (props: Props) => {
             <BlockTitle title={props.title} className="md:col-span-2"/>
             <div className="col-span-2 flex justify-center relative">
                <div className="relative ">
-
                    <Image
                        isBlurred
                        width={250}
