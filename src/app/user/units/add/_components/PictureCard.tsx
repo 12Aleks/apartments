@@ -1,4 +1,3 @@
-import React from 'react';
 import {Card, Image} from "@nextui-org/react";
 import {TrashIcon} from "@heroicons/react/16/solid";
 

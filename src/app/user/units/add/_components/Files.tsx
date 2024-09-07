@@ -1,4 +1,3 @@
-import React from 'react';
 import {Card} from "@nextui-org/card";
 import {Button, cn} from "@nextui-org/react";
 import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/16/solid";

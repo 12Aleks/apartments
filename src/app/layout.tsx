@@ -4,6 +4,7 @@ import "./globals.css";
 import {Providers} from "@/app/components/providers";
 import Appbar from "@/app/components/Appbar";
 import SignInPanel from "@/app/components/signInPanel";
+import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 

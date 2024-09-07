@@ -9,12 +9,9 @@ import {
     ModalHeader,
     Button,
     useDisclosure,
-    Image
 } from "@nextui-org/react";
 import FileInput from "@/app/components/fileUpload";
-import {uploadBadge} from "@/lib/upload";
-import {useRouter} from "next/navigation";
-import {updateBadgeUrl} from "@/lib/actions/unit";
+
 
 
 interface IProps {
@@ -27,7 +24,6 @@ const UploadFile = (props: IProps) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [imageUrl, setImageUrl] = useState<File>();
     const [isSubmitting, setIsSubmitting] = useState(false);
-
 
     return (
         <div>

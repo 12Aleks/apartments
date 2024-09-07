@@ -1,6 +1,5 @@
-"use client";
-import {UnitOrganization, UnitType} from "@prisma/client";
 
+import {UnitOrganization, UnitType} from "@prisma/client";
 import {Card} from "@nextui-org/card";
 import {cn, Input, Textarea, Select, SelectItem, Image, Button} from "@nextui-org/react";
 import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/16/solid";
@@ -16,8 +15,8 @@ interface Props{
     organizationTypes: UnitOrganization[];
     types: UnitType[];
     next: () => void;
-    badge: File;
-    setBadge: (badge: File) => void;
+    badge: File | null;
+    setBadge: (file: File | null) => void;
 }
 
 const Basic = (props: Props) => {
@@ -27,7 +26,7 @@ const Basic = (props: Props) => {
         <Card className={cn("gap-3 mt-5 p-3 grid grid-cols-1 md:grid-cols-2 border-0", props.className)}>
             <BlockTitle title={props.title} className="md:col-span-2"/>
             <div className="col-span-2 flex justify-center relative">
-               <div className="relative ">
+               <div className="relative ps-2 pe-2 pt-2">
                    <Image
                        isBlurred
                        width={250}
@@ -35,7 +34,7 @@ const Basic = (props: Props) => {
                        src={ props.badge ? URL.createObjectURL(props.badge) : "/no_image.jpg" }
                        alt="badge"
                        className="border mb-4 relative z-0
-                       object-contain object-center "
+                       object-contain object-center p-2"
                    />
                    <UploadFile setBadgeImage={(data) => props.setBadge(data)}/>
                </div>
