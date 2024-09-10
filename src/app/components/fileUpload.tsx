@@ -5,6 +5,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
     labelText?: string;
     onSelect?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     error?: string;
+    fileTypes?: string[];
 }
 
 const FileInput = React.forwardRef<HTMLInputElement, IProps>(
@@ -16,7 +17,7 @@ const FileInput = React.forwardRef<HTMLInputElement, IProps>(
             onChange,
             onSelect,
             error,
-
+            fileTypes = [],
             ...props
         },
         ref
@@ -25,9 +26,19 @@ const FileInput = React.forwardRef<HTMLInputElement, IProps>(
 
         function fileChangedHandler(e: any) {
             const file = e.target.files[0];
-            setFileName(file.name);
-            onChange && onChange(e);
-            onSelect && onSelect(e);
+            if (file) {
+                const fileType = file.type;
+                const isValidType = fileTypes.length === 0 || fileTypes.includes(fileType);
+
+                if (isValidType) {
+                    setFileName(file.name);
+                    onChange && onChange(e);
+                    onSelect && onSelect(e);
+                } else {
+                    setFileName("");
+                    alert("Invalid file type selected.");
+                }
+            }
         }
 
         return (
@@ -44,6 +55,7 @@ const FileInput = React.forwardRef<HTMLInputElement, IProps>(
                             className="hidden"
                             ref={ref}
                             onChange={(e) => fileChangedHandler(e)}
+                            accept={fileTypes.join(",")}
                             {...props}
                             type="file"
                         />

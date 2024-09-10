@@ -11,7 +11,7 @@ const Stepper = (props: Props) => {
     return (
         <div className={cn("flex items-center justify-around ps-3 pe-3 pt-4", props.className)}>
             {props.items.map((item, index) => (
-                <div key={index} className="flex items-center w-full">
+                <div key={index} className={ cn("flex items-center", { "w-full" : index <= 3})}>
                     <div className="flex flex-col items-center">
                         <div
                             className={cn("rounded-full w-6 h-6 flex justify-center items-center transition", {
@@ -26,7 +26,7 @@ const Stepper = (props: Props) => {
                         </div>
                         <p className="text-xs uppercase pt-2 tracking-wider">{item.label}</p>
                     </div>
-                    {index !== props.items.length - 1 && (
+                    {index !== props.items.length  - 1  && (
                         <div
                             className={cn(
                                 "border h-0 w-full -mt-5 relative after:absolute after:left-0 after:top-0 after:border after:transition-all after:duration-300 after:ease-in",

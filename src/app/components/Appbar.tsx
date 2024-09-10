@@ -8,7 +8,7 @@ import {
 import Image from "next/image";
 
 interface IAppBarProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 const Appbar = ({children}: IAppBarProps) => {

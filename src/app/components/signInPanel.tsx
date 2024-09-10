@@ -16,14 +16,6 @@ const signInPanel = async () => {
         const user = await getUser();
         console.log("User",user)
         const dbUser = await getUserById(user? user.id: '');
-        // const dbUser = await prisma.user.findUnique({
-        //     where: {
-        //         id: user?.id,
-        //     },
-        // });
-
-        console.log(dbUser);
-
         return <>{dbUser!! && <UserProfilePanel user={dbUser} />}</>;
     }
 

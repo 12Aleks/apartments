@@ -13,82 +13,104 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  firstName String
-  lastName  String
-  email     String     @unique
-  avatarUrl String?
-  units     Unit[]
-  files     Conflict[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id            String          @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String          @unique
+  avatarUrl     String?
+  Property      Property[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  subscriptions Subscriptions[]
 }
 
-model Unit {
-  id               Int              @id @default(autoincrement())
-  title            String
-  description      String
-  badgeUrl         String
-  organizationId   Int
-  unitOrganization UnitOrganization @relation(fields: [organizationId], references: [id])
-  typeId           Int
-  unitType         UnitType         @relation(fields: [typeId], references: [id])
-  awardsId         Int
-  awardsList       Awards[]
-  authorId         String
-  author           User             @relation(fields: [authorId], references: [id])
-  files            File[]
-  images           Image[]
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-}
-
-model UnitType {
-  id    Int    @id @default(autoincrement())
-  value String
-  units Unit[]
-}
-
-model Awards {
-  id     Int    @id @default(autoincrement())
-  value  String
-  unitId Int
-  unit   Unit   @relation(fields: [unitId], references: [id])
-}
-
-model UnitOrganization {
-  id                Int    @id @default(autoincrement())
-  value             String
-  unitsOrganization Unit[]
-}
-
-model File {
-  id        Int      @id @default(autoincrement())
-  url       String
-  unitId    Int
-  unit      Unit     @relation(fields: [unitId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Conflict {
-  id          Int      @id @default(autoincrement())
-  title       String
+model Property {
+  id          Int               @id @default(autoincrement())
+  name        String
   description String
-  images      Image[]
-  authorId    String
-  author      User     @relation(fields: [authorId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  price       Int
+  userId      String
+  user        User              @relation(fields: [userId], references: [id])
+  typeId      Int
+  type        PropertyType      @relation(fields: [typeId], references: [id])
+  statusId    Int
+  status      PropertyStatus    @relation(fields: [statusId], references: [id])
+  location    PropertyLocation?
+  feature     PropertyFeature?
+  images      PropertyImage[]
+  contact     Contact?
 }
 
-model Image {
+model Contact {
+  id         Int      @id @default(autoincrement())
+  name       String
+  phone      String
+  email      String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId Int      @unique
+}
+
+model PropertyImage {
   id         Int      @id @default(autoincrement())
   url        String
-  conflictId Int
-  conflict   Conflict @relation(fields: [conflictId], references: [id])
-  unitId     Int
-  unit       Unit     @relation(fields: [unitId], references: [id])
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId Int
+}
+
+model PropertyFeature {
+  id              Int      @id @default(autoincrement())
+  bedrooms        Int
+  bathrooms       Int
+  parkingSpots    Int
+  area            Int
+  hasSwimmingPool Boolean
+  hasGardenYard   Boolean
+  hasBalcony      Boolean
+  property        Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId      Int      @unique
+}
+
+model PropertyLocation {
+  id            Int      @id @default(autoincrement())
+  streetAddress String
+  city          String
+  state         String
+  zip           String
+  region        String
+  landmark      String
+  propertyId    Int      @unique
+  property      Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+}
+
+model PropertyType {
+  id       Int        @id @default(autoincrement())
+  value    String
+  Property Property[]
+}
+
+model PropertyStatus {
+  id       Int        @id @default(autoincrement())
+  value    String
+  Property Property[]
+}
+
+model SubscriptionPlan {
+  id                    Int             @id @default(autoincrement())
+  name                  String
+  price                 Float
+  propertyLimit         Int
+  imagePerPropertyLimit Int
+  features              String
+  subscriptions         Subscriptions[]
+}
+
+model Subscriptions {
+  id        Int              @id @default(autoincrement())
+  paymentID String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  plan      SubscriptionPlan @relation(fields: [palnId], references: [id])
+  palnId    Int
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
 }
