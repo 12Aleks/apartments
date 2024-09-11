@@ -38,7 +38,7 @@ const Features = (props: Props) => {
                 errorMessage={errors.propertyFeature?.bedrooms?.message}
                 isInvalid={!!errors.propertyFeature?.bedrooms}
                 label="Bedrooms"
-                defaultValue={getValues().propertyFeature.bedrooms.toString()}
+                defaultValue={getValues().propertyFeature.bedrooms?.toString() || ""}
             />
 
             <Input
@@ -46,14 +46,14 @@ const Features = (props: Props) => {
                 errorMessage={errors.propertyFeature?.bathrooms?.message}
                 isInvalid={!!errors.propertyFeature?.bathrooms}
                 label="Bathrooms"
-                defaultValue={getValues().propertyFeature.bathrooms.toString()}
+                defaultValue={getValues().propertyFeature.bathrooms?.toString() || ""}
             />
             <Input
                 {...register("propertyFeature.parkingSpots")}
                 errorMessage={errors.propertyFeature?.parkingSpots?.message}
                 isInvalid={!!errors.propertyFeature?.parkingSpots}
                 label="Parking Spots"
-                defaultValue={getValues().propertyFeature.parkingSpots.toString()}
+                defaultValue={getValues().propertyFeature.parkingSpots?.toString() || ""}
             />
 
             <Input
@@ -61,13 +61,13 @@ const Features = (props: Props) => {
                 errorMessage={errors.propertyFeature?.area?.message}
                 isInvalid={!!errors.propertyFeature?.area}
                 label="Area"
-                defaultValue={getValues().propertyFeature.area.toString()}
+                defaultValue={getValues().propertyFeature.area?.toString() || ""}
             />
             <div className="flex items-center justify-between ">
                 <Controller
                     control={control}
                     name="propertyFeature.hasSwimmingPool"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <Checkbox
                             onChange={field.onChange}
                             onBlur={field.onBlur}
@@ -81,7 +81,7 @@ const Features = (props: Props) => {
                 <Controller
                     control={control}
                     name="propertyFeature.hasGardenYard"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <Checkbox
                             onChange={field.onChange}
                             onBlur={field.onBlur}
@@ -95,7 +95,7 @@ const Features = (props: Props) => {
                 <Controller
                     control={control}
                     name="propertyFeature.hasBalcony"
-                    render={({ field }) => (
+                    render={({field}) => (
                         <Checkbox
                             onChange={field.onChange}
                             onBlur={field.onBlur}
@@ -106,23 +106,15 @@ const Features = (props: Props) => {
                     )}
                 />
             </div>
-            <div className="flex justify-center col-span-2 gap-3">
+            <div className="flex justify-between col-span-2 gap-2 mt-5">
                 <Button
                     onClick={props.prev}
-                    startContent={<ChevronLeftIcon className="w-6" />}
-                    color="primary"
-                    className="w-36"
-                >
-                    Previous
-                </Button>
+                    startContent={<ChevronLeftIcon className="w-6"/>}
+                    color="primary" className="w-40">Previous</Button>
                 <Button
                     onClick={handleNext}
-                    endContent={<ChevronRightIcon className="w-6" />}
-                    color="primary"
-                    className="w-36"
-                >
-                    Next
-                </Button>
+                    endContent={<ChevronRightIcon className="w-6"/>}
+                    color="primary" className="w-40">Next</Button>
             </div>
         </Card>
     );

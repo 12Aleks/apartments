@@ -23,9 +23,11 @@ const Appbar = ({children}: IAppBarProps) => {
                 />
                 <NavbarBrand>
                     <Link href="/"
-                          className="flex items-center text-primary-400 hover:text-primary-600 transition-colors">
-                        <Image src="/banner.png" alt="Logo logo" width="55" height="40" className="pe-3 opacity-70"/>
-                        <p className="font-bold text-inherit">Medals</p>
+                          className="border-2 border-blue-400 pt-5 pb-5 pl-10 pr-10 relative flex items-center text-primary-400 hover:text-primary-600 transition-colors"
+                          style={{}}
+                    >
+                        {/*<Image src="/banner.png" alt="Logo logo" width="55" height="40" className="pe-3 opacity-70"/>*/}
+                        <p className="absolute -left-4 bg-white uppercase font-bold text-inherit">Apartments</p>
                     </Link>
                 </NavbarBrand>
             </NavbarContent>

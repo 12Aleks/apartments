@@ -11,6 +11,7 @@ import { AddPropertyFormSchema } from "@/lib/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Features from "@/app/user/properties/add/_components/Features";
 import Contact from "@/app/user/properties/add/_components/Contact";
+import {uploadImages} from "@/lib/upload";
 
 const stepsList = [
     {
@@ -48,6 +49,8 @@ const AddPropertyForm = (props: Props) => {
 
     const onSubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
         console.log({data});
+        const imagesUrl: string[] = await uploadImages(images);
+        console.log(imagesUrl);
     }
     
     return (

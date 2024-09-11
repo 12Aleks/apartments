@@ -91,14 +91,14 @@ const Location = (props: Props) => {
                 defaultValue={getValues().location.landmark}
             />
             <div className="flex justify-between col-span-2 gap-2 mt-5">
-            <Button
-                onClick={handlePrev}
-                startContent={<ChevronLeftIcon className="w-6" />}
-                color="primary" className="w-40">Previous</Button>
-            <Button
-                onClick={handleNext}
-                endContent={<ChevronRightIcon className="w-6" />}
-                color="primary" className="w-40">Next</Button>
+                <Button
+                    onClick={handlePrev}
+                    startContent={<ChevronLeftIcon className="w-6"/>}
+                    color="primary" className="w-40">Previous</Button>
+                <Button
+                    onClick={handleNext}
+                    endContent={<ChevronRightIcon className="w-6"/>}
+                    color="primary" className="w-40">Next</Button>
             </div>
         </Card>
     );

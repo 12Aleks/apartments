@@ -43,7 +43,7 @@ const Contact = ({ title, prev, className }: Props) => {
                 label="Email"
                 defaultValue={getValues("contact.email")}
             />
-            <div className="flex justify-between col-span-2 gap-2 mt-5">
+            <div className="flex justify-between col-span-3 gap-2 mt-5">
                 <Button
                     onClick={prev}
                     startContent={<ChevronLeftIcon className="w-6"/>}
