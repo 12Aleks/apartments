@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import {ReactNode} from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import {Providers} from "@/app/components/providers";
 import Appbar from "@/app/components/Appbar";
 import SignInPanel from "@/app/components/signInPanel";
-import React from "react";
+
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -26,6 +29,7 @@ export default function RootLayout({
              <SignInPanel />
           </Appbar>
           {children}
+            <ToastContainer/>
         </Providers>
       </body>
     </html>

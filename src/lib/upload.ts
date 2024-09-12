@@ -42,5 +42,6 @@ export async function uploadImages(images: File[]) {
         return null;
     });
 
+
     return urls;
 }
