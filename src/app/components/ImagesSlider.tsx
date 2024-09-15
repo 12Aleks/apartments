@@ -7,7 +7,7 @@ import {Card, cn} from "@nextui-org/react";
 export const ImagesSlider = ({
                                  images,
 
-                                 overlay = true,
+                                 overlay = false,
                                  overlayClassName,
                                  className,
                                  autoplay = true,
@@ -74,7 +74,7 @@ export const ImagesSlider = ({
         if (autoplay) {
             interval = setInterval(() => {
                 handleNext();
-            }, 5000);
+            }, 8000);
         }
 
         return () => {

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import { Prisma, Property, PropertyImage, PropertyStatus, PropertyType } from "@prisma/client";
+import {Prisma, Property, PropertyImage, PropertyStatus, PropertyType} from "@prisma/client";
 import Stepper from "@/app/user/properties/add/_components/Stepper";
 import Basic from "@/app/user/properties/add/_components/Basic";
 import Location from "./Location";
@@ -38,15 +38,34 @@ const stepsList = [
 interface Props {
     types: PropertyType[];
     statuses: PropertyStatus[];
+    property?: Prisma.PropertyGetPayload<{
+        include: {
+            location: true,
+            feature: true,
+            contact: true,
+            images: true,
+        }
+    }>;
+    isEdit?: boolean;
 
 }
 
 export type AddPropertyInputType = z.infer<typeof AddPropertyFormSchema>;
 
-const AddPropertyForm = (props: Props) => {
+const AddPropertyForm = ({isEdit = false, ...props}: Props) => {
     const router = useRouter();
     const methods = useForm<AddPropertyInputType>({
         resolver: zodResolver(AddPropertyFormSchema),
+        defaultValues: {
+            location: props.property?.location ?? undefined,
+            contact: props.property?.contact ?? undefined,
+            propertyFeature: props.property?.feature ?? undefined,
+            description: props.property?.description ?? undefined,
+            name: props.property?.name ?? undefined,
+            price: props.property?.price ?? undefined,
+            statusId: props.property?.statusId ?? undefined,
+            typeId: props.property?.typeId?? undefined,
+        }
     });
 
     const [images, setImages] = useState<File[]>([]);

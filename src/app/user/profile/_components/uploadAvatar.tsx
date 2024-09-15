@@ -24,7 +24,7 @@ interface IProps {
 
 const UploadAvatar = ({userId}: IProps) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    const [imageUrl, setImageUrl] = useState<File>();
+    const [imageUrl, setImageUrl] = useState<File | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
 
@@ -54,9 +54,10 @@ const UploadAvatar = ({userId}: IProps) => {
                                     }
                                     const avatarUrl = await uploadAvatar(imageUrl);
 
-                                    const result = await updateAvatarUrl(avatarUrl, userId);
-
-                                    router.refresh()
+                                    if (avatarUrl) {
+                                        await updateAvatarUrl(avatarUrl, userId);
+                                        router.refresh()
+                                    }
 
                                     setIsSubmitting(false)
                                     onClose()

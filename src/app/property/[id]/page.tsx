@@ -5,6 +5,8 @@ import PageTitle from "@/app/components/pageTitle";
 import {Card, cn} from "@nextui-org/react";
 import Title from "@/app/components/Title";
 import {ImagesSlider} from "@/app/components/ImagesSlider";
+import MapComponent from "@/app/components/MapComponent";
+import {MapProvider} from "@/providers/map-provider";
 
 
 interface Props {
@@ -42,11 +44,9 @@ const PropertyPage = async({params}: Props) => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                     <div className="col-span-2">
                         <ImagesSlider images={property.images.map(img => img.url)}  />
-                        <h2 className="tex-2 font-bold text-slate-700 mt-7">$ {property.price} / {property.status.value}</h2>
-                        <p className="text-sm mt-5">{property.description}</p>
                     </div>
                     <Card className="p-3 flex flex-col gap-1">
-                      <Title title="Features"/>
+                        <Title title="Features"/>
                         <Attribute label="Bedrooms" value={property.feature?.bedrooms}/>
                         <Attribute label="Bathrooms" value={property.feature?.bathrooms}/>
                         <Attribute label="Parking Spots" value={property.feature?.parkingSpots}/>
@@ -62,6 +62,16 @@ const PropertyPage = async({params}: Props) => {
                         <Attribute label="Phone" value={property.contact?.phone}/>
                     </Card>
                 </div>
+                <Card className="p-3 flex flex-col gap-1 mt-7">
+                    <Title title="Description"/>
+                    <h2 className="tex-2 font-bold text-slate-700">$ {property.price} / {property.status.value}</h2>
+                    <p className="text-sm mt-5">{property.description}</p>
+                </Card>
+                <Card className="p-3 flex flex-col gap-1 mt-7">
+                    <MapProvider>
+                        <MapComponent />
+                    </MapProvider>
+                </Card>
             </div>
         </div>
     );

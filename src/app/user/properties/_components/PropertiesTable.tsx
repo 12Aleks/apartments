@@ -44,12 +44,12 @@ const PropertiesTable = ({properties, totalPages, currentPage}: Props) => {
                                 <Link href={`/property/${item.id}`}><EyeIcon className="w-5 text-state-500"></EyeIcon></Link>
                                 </Tooltip>
                                 <Tooltip content="Edit property" color="warning">
-                                    <Link href={`/user/property/${item.id}/edit`}>
+                                    <Link href={`/user/properties/${item.id}/edit`}>
                                         <PencilIcon className="w-5 text-yellow-500"></PencilIcon>
                                     </Link>
                                 </Tooltip>
                                 <Tooltip content="Delete property" color="danger">
-                                    <Link href={`/user/property/${item.id}/delete`}>
+                                    <Link href={`/user/properties/${item.id}/delete`}>
                                         <TrashIcon className="w-5 text-red-500"></TrashIcon>
                                     </Link>
                                 </Tooltip>

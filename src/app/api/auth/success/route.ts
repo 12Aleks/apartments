@@ -35,6 +35,8 @@ export async function GET() {
 
    } catch (error) {
       console.error("Error in /api/auth/success:", error);
-      return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+      if (error instanceof Error) {
+         return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+      }
    }
 }
