@@ -4,6 +4,7 @@ import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/16/solid";
 import FileInput from "@/app/components/fileUpload";
 import BlockTitle from "@/app/components/blockTitle";
 import PictureCard from "@/app/user/properties/add/_components/PictureCard";
+import {PropertyImage} from "@prisma/client";
 
 interface Props {
     title: string;
@@ -12,6 +13,8 @@ interface Props {
     className?: string;
     images: File[];
     setImages: (image: File[]) => void;
+    savedImagesUrl?: PropertyImage[];
+    setSavedImagesUrl?: (images: PropertyImage[]) => void;
 }
 
 const Pictures = (props: Props) => {
@@ -25,6 +28,17 @@ const Pictures = (props: Props) => {
                 fileTypes={['image/jpeg', 'image/png']}
                 onSelect={(e) => props.setImages([(e as any).target.files[0], ...props.images])} />
             <div className="flex col-span-2 flex-wrap">
+                {
+                   props.savedImagesUrl!! && props.setSavedImagesUrl!! && props.savedImagesUrl?.map((image, index) => {
+
+                        return <PictureCard key={image.url}
+                                            src={image.url}
+                                            index={index}
+                                            onDelete={(i) => props.savedImagesUrl!! && props.setSavedImagesUrl!! &&
+                                                props.setSavedImagesUrl(props.savedImagesUrl!.filter((img) => img.id !== image.id ))}
+                        />
+                    })
+                }
                 {
                     props.images.map((image, index) => {
                         const srcUrl = URL.createObjectURL(image)

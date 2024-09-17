@@ -25,6 +25,8 @@ export const AddPropertyFormSchema = z.object({
         zip: z.string().refine((data) => validator.isPostalCode(data, "US"), "Enter the zip code"),
         region: z.string().min(1, "Enter the region"),
         landmark: z.string(),
+        lat: z.string().default("0"),
+        lng: z.string().default("0")
     }),
     propertyFeature: z.object({
         bedrooms: z

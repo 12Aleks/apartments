@@ -2,8 +2,8 @@
 import { GoogleMap,  Marker } from "@react-google-maps/api";
 
 interface Props{
-    lat?: string | number
-    lng?: string | number
+    lat: number
+    lng: number
 }
 
 export const defaultMapContainerStyle = {
@@ -32,10 +32,10 @@ const MapComponent = ({lat, lng}: Props) => {
         <div className="w-full">
             <GoogleMap
                 mapContainerStyle={defaultMapContainerStyle}
-                center={defaultMapCenter}
+                center={{lat, lng}}
                 zoom={defaultMapZoom}
                 options={defaultMapOptions}>
-                 <Marker position={{ lat: 54.35295, lng: 18.65157 }} />
+                 <Marker position={{lat, lng}} />
             </GoogleMap>
         </div>
     );

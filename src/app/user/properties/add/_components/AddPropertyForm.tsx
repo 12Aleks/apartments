@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Features from "@/app/user/properties/add/_components/Features";
 import Contact from "@/app/user/properties/add/_components/Contact";
 import {uploadImages} from "@/lib/upload";
-import {saveProperty} from "@/lib/actions/property";
+import {editProperty, saveProperty} from "@/lib/actions/property";
 import {useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
 import {toast} from "react-toastify";
 import {useRouter} from "next/navigation";
@@ -69,6 +69,7 @@ const AddPropertyForm = ({isEdit = false, ...props}: Props) => {
     });
 
     const [images, setImages] = useState<File[]>([]);
+    const [savedImagesUrl, setSavedImagesUrl] = useState<PropertyImage[]>(props.property?.images ?? []);
     const [step, setStep] = useState<number>(0);
     const {user} = useKindeBrowserClient()
 
@@ -79,17 +80,30 @@ const AddPropertyForm = ({isEdit = false, ...props}: Props) => {
 
         if (Array.isArray(imagesUrls) && imagesUrls.every(url => typeof url === 'string')) {
             try {
-                await saveProperty(data, imagesUrls, user?.id!);
+                if(isEdit && props.property){
+                  //update property
 
-                toast("The property was successfully created!",{
-                    position: "top-right",
-                    autoClose: 2000,
-                    closeOnClick: true,
-                });
+                  //list of deleted images
+                  const deletedImageId = props.property?.images.filter(img => !savedImagesUrl.includes(img))
+                      .map(img => img.id);
+                  await editProperty(props.property?.id, data, imagesUrls, deletedImageId);
 
-                router.push("/user/properties");
+                  toast.success("Property Updated successfully.");
+
+                }else{
+                    //create property
+                    await saveProperty(data, imagesUrls, user?.id!);
+
+                    toast("The property was successfully created!",{
+                        position: "top-right",
+                        autoClose: 2000,
+                        closeOnClick: true,
+                    });
+                }
             } catch (err) {
                 console.log(err);
+            }finally {
+                router.push("/user/properties");
             }
         }
 
@@ -127,6 +141,11 @@ const AddPropertyForm = ({isEdit = false, ...props}: Props) => {
                             images={images}
                             setImages={setImages}
                             title={stepsList[3].label}
+                            {...(props.property!! && {
+                                savedImagesUrl: savedImagesUrl,
+                                setSavedImagesUrl: setSavedImagesUrl
+                            })}
+
                         />
                     )}
                     {step === 4 && (

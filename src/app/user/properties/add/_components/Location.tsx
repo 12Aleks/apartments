@@ -2,7 +2,7 @@ import {Card} from "@nextui-org/card";
 import {Button, cn, Input, Textarea} from "@nextui-org/react";
 import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/16/solid";
 import BlockTitle from "@/app/components/blockTitle";
-import { AddPropertyInputType } from "./AddPropertyForm";
+import {AddPropertyInputType} from "./AddPropertyForm";
 import {useFormContext} from "react-hook-form";
 
 
@@ -16,7 +16,7 @@ interface Props {
 const Location = (props: Props) => {
     const {
         register,
-        formState: { errors },
+        formState: {errors},
         trigger,
         getValues,
     } = useFormContext<AddPropertyInputType>();
@@ -29,6 +29,8 @@ const Location = (props: Props) => {
                 "location.state",
                 "location.zip",
                 "location.region",
+                "location.lat",
+                "location.lng"
             ])
         )
             props.next();
@@ -38,7 +40,7 @@ const Location = (props: Props) => {
 
 
     return (
-        <Card className={cn("gap-3 mt-5 p-3 grid grid-cols-1 md:grid-cols-1 border-0", props.className)}>
+        <Card className={cn("gap-3 mt-5 p-3 grid grid-cols-2 md:grid-cols-1 border-0", props.className)}>
             <BlockTitle title={props.title} className="md:col-span-2"/>
             <Input
                 {...register("location.streetAddress")}
@@ -90,6 +92,23 @@ const Location = (props: Props) => {
                 className="col-span-2"
                 defaultValue={getValues().location.landmark}
             />
+            <div className="col-span-2 flex flex-row gap-3">
+                <Input
+                    {...register("location.lat")}
+                    errorMessage={errors.location?.state?.message}
+                    isInvalid={!!errors.location?.lat}
+                    label="Latitude"
+                    defaultValue={getValues().location.lat}
+                />
+
+                <Input
+                    {...register("location.lng")}
+                    errorMessage={errors.location?.region?.message}
+                    isInvalid={!!errors.location?.region}
+                    label="Longitude"
+                    defaultValue={getValues().location.lng}
+                />
+            </div>
             <div className="flex justify-between col-span-2 gap-2 mt-5">
                 <Button
                     onClick={handlePrev}

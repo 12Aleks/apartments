@@ -5,7 +5,7 @@ import {AddPropertyInputType} from "@/app/user/properties/add/_components/AddPro
 import {Property} from "@prisma/client";
 
 export async function saveProperty(propertyData: AddPropertyInputType, imagesUrls: string[], userId: string) {
-    const basic: Omit<Property, "id"> = {
+    const basic: Omit<Property, "id" | "createAt" | "updateAt"> = {
         name: propertyData.name,
         description: propertyData.description,
         price: propertyData.price,
@@ -39,3 +39,44 @@ export async function saveProperty(propertyData: AddPropertyInputType, imagesUrl
     return result
 }
 
+export async function editProperty(propertyId: number, propertyData: AddPropertyInputType, newImagesUrls: string[], deletedImageIds: number[]) {
+  const result = prisma.property.update({
+      where:{
+          id: propertyId,
+      },
+      data: {
+          name: propertyData.name,
+          price: propertyData.price,
+          statusId: propertyData.statusId,
+          typeId: propertyData.typeId,
+          description: propertyData.description,
+          contact: {
+              update: {
+                  ...propertyData.contact,
+              }
+          },
+          feature: {
+              update: {
+                  ...propertyData.propertyFeature
+              }
+          },
+          location: {
+              update: {
+                  ...propertyData.location,
+              }
+          },
+          images: {
+              create: newImagesUrls.map(imageUrl => ({
+                  url: imageUrl
+              })),
+              deleteMany: {
+                  id:{
+                      in: deletedImageIds
+                  }
+              }
+          }
+      }
+  });
+  console.log(result)
+    return result
+}

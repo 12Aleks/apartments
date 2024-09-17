@@ -1,5 +1,4 @@
 'use client';
-console.log(process.env.NEXT_PUBLIC_GOOGLE_MAP_API)
 // Import necessary modules and functions from external libraries and our own project
 import { Libraries, useJsApiLoader } from '@react-google-maps/api';
 import { ReactNode } from 'react';

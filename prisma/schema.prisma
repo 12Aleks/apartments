@@ -39,6 +39,8 @@ model Property {
   feature     PropertyFeature?
   images      PropertyImage[]
   contact     Contact?
+  createAt    DateTime          @default(now())
+  updateAt    DateTime          @default(now())
 }
 
 model Contact {
@@ -78,8 +80,8 @@ model PropertyLocation {
   zip           String
   region        String
   landmark      String
-  lat           Float    @default(0.0)
-  lng           Float    @default(0.0)
+  lat           String   @default("0")
+  lng           String   @default("0")
   propertyId    Int      @unique
   property      Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }

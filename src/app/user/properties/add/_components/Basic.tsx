@@ -19,7 +19,7 @@ interface Props{
 }
 
 const Basic = (props: Props) => {
-    const {register, trigger,    getValues, formState: {errors}} = useFormContext<AddPropertyInputType>()
+    const {register, trigger,  getValues, formState: {errors}} = useFormContext<AddPropertyInputType>()
     const handleNext = async() => {
         //check fields in the form
         if(await trigger(["name", "description", "typeId", "statusId", "price"]) ) props.next();
