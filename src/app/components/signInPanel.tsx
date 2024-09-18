@@ -14,7 +14,7 @@ const signInPanel = async () => {
 
     if (await isAuthenticated()) {
         const user = await getUser();
-        console.log("User",user)
+
         const dbUser = await getUserById(user? user.id: '');
         return <>{dbUser!! && <UserProfilePanel user={dbUser} />}</>;
     }

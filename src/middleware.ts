@@ -5,5 +5,5 @@ export default function middleware(req: any) {
 
 //list of protected routes
 export const config = {
-    matcher: ["/user/profile"]
+    matcher: ["/user/:path*"]
 };
