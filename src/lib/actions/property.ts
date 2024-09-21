@@ -80,3 +80,14 @@ export async function editProperty(propertyId: number, propertyData: AddProperty
   console.log(result)
     return result
 }
+
+
+export async function deleteProperty(propertyId: number) {
+    const result = await prisma.property.delete({
+        where: {
+            id: propertyId,
+        }
+    })
+
+    return result
+}
