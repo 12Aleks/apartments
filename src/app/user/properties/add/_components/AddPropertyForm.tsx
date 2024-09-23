@@ -74,7 +74,7 @@ const AddPropertyForm = ({isEdit = false, ...props}: Props) => {
     const {user} = useKindeBrowserClient()
 
     const onSubmit: SubmitHandler<AddPropertyInputType> = async (data) => {
-        console.log({data});
+
 
         const imagesUrls = await uploadImages(images);
 

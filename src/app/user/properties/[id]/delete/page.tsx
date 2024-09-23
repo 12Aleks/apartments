@@ -1,56 +1,58 @@
-import React from 'react';
-import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
+import SubmitButton from "@/app/components/SubmitButton";
+import { deleteProperty } from "@/lib/actions/property";
 import prisma from "@/lib/prisma";
-import {notFound, redirect} from "next/navigation";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
-import {Button} from "@nextui-org/react";
-import {deleteProperty} from "@/lib/actions/property";
+import { notFound, redirect } from "next/navigation";
 
-interface Props{
-    params: {
-        id: string;
-    }
+interface Props {
+    params: { id: string };
 }
 
-const DeletePropertyPage = async ({params}: Props) => {
-    const {getUser} =getKindeServerSession();
-
-    const propertyPromise = await prisma.property.findUnique({
+async function DeletePropertyPage({ params }: Props) {
+    const { getUser } = getKindeServerSession();
+    const propertyPromise = prisma.property.findUnique({
         where: {
-            id: Number(params.id)
-        }
+            id: +params.id,
+        },
     });
+    const [property, user] = await Promise.all([propertyPromise, getUser()]);
 
-    const [property, user] = await  Promise.all([propertyPromise, getUser()])
+    if (!property) return notFound();
+    if (!user || property.userId !== user.id) redirect("/unauthorized");
 
-    if(!property) return notFound();
-    if(!user || property.userId !== user.id) redirect('/unauthorized');
-
-   const deleteAction = async () => {
-       "use server"
-       try{
-           await  deleteProperty(property.id)
-           redirect("/user/property")
-       }catch (e){
-           console.error(e);
-       }
-   }
-
+    const deleteAction = async () => {
+        "use server";
+        try {
+            await deleteProperty(+params.id);
+            redirect("/user/properties");
+        } catch (e) {
+            throw e;
+        }
+    };
 
     return (
-        <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
+        <div className="flex flex-col items-center justify-center bg-gray-100" style={{ height: "calc(100vh - 125px)" }}>
         <form action={deleteAction} className="flex flex-col items-center justify-center bg-gray-200 border-1 border-gray-300 p-5 rounded-md">
-            <p className="text-xl mb-4 capitalize">Are you sure to delete this property?</p>
-            <p className="text-slate-400"><span>Name: </span><span className="text-slate-700">{property.name}</span></p>
-            <div className="mt-5 flex justify-center gap-3">
-                <Link  href={"/user/properties"} >
-                    <Button>Cansel</Button>
+            <p>Are you sure to delete this property?</p>
+            <p>
+                <span className="text-slate-400">Name: </span>{" "}
+                <span className="text-slate-700">{property.name}</span>
+            </p>
+            <div className="flex justify-center gap-3">
+                <Link href={"/user/properties"}>
+                    <Button>Cancel</Button>
                 </Link>
-                <Button type="submit" color="danger" >Delete</Button>
+                <SubmitButton type="submit" color="danger">
+                    Delete
+                </SubmitButton>
             </div>
         </form>
         </div>
     );
-};
+}
 
 export default DeletePropertyPage;
+
+

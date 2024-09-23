@@ -4,9 +4,10 @@ import Link from "next/link";
 
 interface IProps{
     children?: ReactNode;
+    modalDelete?: ReactNode;
 }
 
-const UnitsLayout = ({children}: IProps) => {
+const UnitsLayout = ({children, modalDelete}: IProps) => {
     return (
         <div>
             <div className="bg-primary-400 flex justify-between items-center p-2">
@@ -16,6 +17,7 @@ const UnitsLayout = ({children}: IProps) => {
                 </Button>
             </div>
             {children}
+            <div>{modalDelete}</div>
         </div>
     );
 };

@@ -34,8 +34,6 @@ export async function saveProperty(propertyData: AddPropertyInputType, imagesUrl
         }
     });
 
-    console.log(result)
-
     return result
 }
 
@@ -77,15 +75,15 @@ export async function editProperty(propertyId: number, propertyData: AddProperty
           }
       }
   });
-  console.log(result)
+
     return result
 }
 
 
-export async function deleteProperty(propertyId: number) {
+export async function deleteProperty(id: number) {
     const result = await prisma.property.delete({
         where: {
-            id: propertyId,
+            id
         }
     })
 
