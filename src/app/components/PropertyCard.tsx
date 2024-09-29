@@ -25,7 +25,7 @@ interface Props{
 
 const PropertyCard = ({property}:Props) => {
     return (
-        <Card className="w-80 flex flex-col hover: sacle-105" shadow="md">
+        <Card className="w-80 flex flex-col hover:scale-105" shadow="md">
             <Image radius="none" src={property.images[0].url} alt={property.name} className="object-fill w-96 h-48 rounded-0" />
             <div className="p-4 h-full flex flex-col">
                 <p className="text-primary-600 text-xl font-bold">{property.name}</p>

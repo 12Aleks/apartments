@@ -64,10 +64,9 @@ const PropertyPage = async ({params}: Props) => {
                         <Attribute label="Living Area" value={property.feature?.area}/>
                         <Title title="Adress" className="mt-7"/>
                         <Attribute label="City" value={property.location?.city}/>
-                        <Attribute label="Landmarks" value={property.location?.landmark}/>
                         <Attribute label="Zip Code" value={property.location?.zip}/>
                         <Attribute label="Address" value={property.location?.streetAddress}/>
-                        <Link href="#map-section" className="tex-2 text-blue-700 hover:text-blue-900 flex">
+                        <Link href="#map-section" className="tex-2 text-blue-700 hover:text-blue-900 flex mt-3">
                             <h2>See location on the map</h2><MapIcon className="w-6 ms-1"/>
                         </Link>
                         <Title title="Owner Details" className="mt-7"/>
@@ -80,10 +79,20 @@ const PropertyPage = async ({params}: Props) => {
                 </div>
                 <Card className="p-3 flex flex-col gap-1 mt-7">
                     <Title title="Description"/>
-
                     <pre
-                        className="text-sm break-words whitespace-pre-wrap mt-5 overflow-hidden">{property.description}</pre>
+                        className="font-sans text-md break-words whitespace-pre-wrap mt-5 overflow-hidden text-slate-600">
+                        {property.description}
+                    </pre>
                 </Card>
+                {
+                    property.location?.landmark &&
+                        <Card className="p-3 flex flex-col gap-1 mt-7">
+                            <Title title="Landmarks"/>
+                            <pre className="font-sans text-md break-words whitespace-pre-wrap mt-5 overflow-hidden text-slate-600">
+                                {property.location?.landmark}
+                           </pre>
+                        </Card>
+                }
                 {property.location?.lat && property.location?.lng && (
                     <>
                         <Card className="p-3 flex flex-col gap-1 mt-7">
