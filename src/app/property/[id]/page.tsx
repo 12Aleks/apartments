@@ -37,7 +37,7 @@ const PropertyPage = async ({params}: Props) => {
     });
 
     if (!property) return notFound()
-
+    console.log("Leng", property.location?.lat!! , property.location?.lng!!)
     return (
         <div>
             <PageTitle title={"Property Page"} href='/' linkCaption={"Back to Properties"}/>
@@ -93,7 +93,8 @@ const PropertyPage = async ({params}: Props) => {
                            </pre>
                         </Card>
                 }
-                {property.location?.lat && property.location?.lng && (
+
+                {(property.location?.lat && property.location?.lng) && (
                     <>
                         <Card className="p-3 flex flex-col gap-1 mt-7">
                             <MapProvider>

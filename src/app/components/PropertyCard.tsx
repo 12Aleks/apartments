@@ -32,8 +32,8 @@ const PropertyCard = ({property}:Props) => {
                 <p className="text-slate-600 mt-auto">{property.location?.city}, {property.location?.state}</p>
             </div>
             <div className="bg-gradient-to-br from-state-50 to-state-200 p-4 flex justify-between mt-auto border-t-1 border-t-gray-200">
-              <p>{property.price?.toLocaleString()}</p>
-              <Link className="hover:text-primary-500 transition-colors" href={`/property/${property.id}`}>
+              <p>$ {property.price?.toLocaleString()}</p>
+              <Link className="text-primary-500 hover:text-primary-600 transition-colors" href={`/property/${property.id}`}>
                    View Details
               </Link>
             </div>
