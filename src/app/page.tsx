@@ -5,13 +5,11 @@ import Search from "@/app/components/Search";
 
 const PAGE_SIZE = 12;
 
-
 interface Props {
     searchParams: {
         [key: string]: string | string[] | undefined;
     }
 }
-
 
 export default async function Home({searchParams}: Props) {
     // Use 1-indexed pagination for user-facing behavior (default page is 1)
@@ -19,7 +17,9 @@ export default async function Home({searchParams}: Props) {
 
     const query = searchParams.query ?? "";
     const type = searchParams.type === 'all' ? "" : searchParams.type ?? "";
-    console.log(type)
+    const min = searchParams.min ? Number(searchParams.min) : undefined;
+    const max = searchParams.max ? Number(searchParams.max) : undefined;
+
 
     const propertiesPromise = prisma.property.findMany({
         select: {
@@ -53,9 +53,22 @@ export default async function Home({searchParams}: Props) {
                     },
                 },
             }),
+            price: {
+                ...(min !== undefined && { gte: min }),
+                ...(max !== undefined && { lte: max }),
+            }
         },
         skip: (pagenum - 1) * PAGE_SIZE,  // Ensure page 1 starts from 0 index
         take: PAGE_SIZE,
+    });
+
+    const priceRange = prisma.property.aggregate({
+        _min: {
+            price: true, // Get the minimum price
+        },
+        _max: {
+            price: true, // Get the maximum price
+        },
     });
 
     const totalTypes = prisma.propertyType.findMany()
@@ -70,13 +83,13 @@ export default async function Home({searchParams}: Props) {
         }),
     });
 
-    const [properties, totalProperties, types] = await Promise.all([propertiesPromise, totalPropertiesPromise, totalTypes]);
+    const [properties, totalProperties, types, price] = await Promise.all([propertiesPromise, totalPropertiesPromise, totalTypes, priceRange]);
 
     const totalPages = Math.ceil(totalProperties / PAGE_SIZE);  // Make sure to round up to the next whole number
 
     return (
         <main>
-            <Search types={types}/>
+            <Search types={types} price={price}/>
             <PropertyContainer totalPages={totalPages} currentPage={pagenum}>
                 {properties.map((property) => (
                     <PropertyCard property={property} key={property.id}/>
