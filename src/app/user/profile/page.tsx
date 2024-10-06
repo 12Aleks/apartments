@@ -4,8 +4,9 @@ import {KindeUser} from "@kinde-oss/kinde-auth-nextjs/types";
 import PageTitle from "@/app/components/pageTitle";
 import {Card} from "@nextui-org/card";
 import SectionTitle from "@/app/user/profile/_components/sectionTitle";
-import {Avatar} from "@nextui-org/react";
+import {Avatar, Button} from "@nextui-org/react";
 import UploadAvatar from "@/app/user/profile/_components/uploadAvatar";
+import Link from "next/link";
 
 interface IAttribute {
     title: string
@@ -15,7 +16,7 @@ interface IAttribute {
 const ProfilePage = async () => {
     const {getUser} = await getKindeServerSession();
 
-    const user: KindeUser | null = await getUser();
+    const user: KindeUser<any> | null = await getUser();
     const dbUser = await getUserById(user ? user.id : '');
 
 
@@ -36,6 +37,13 @@ const ProfilePage = async () => {
                     <Attribute title="Registered On" value={dbUser?.createdAt?.toLocaleDateString()}/>
                     <Attribute title="Units Posted" value={1}/>
                 </div>
+            </Card>
+            <Card className="p-4 m-4">
+               <SectionTitle title="Subscription Details" />
+                <Link href="/user/subscriptions/" className="mt-5 mb-5">
+                    <Button variant="bordered" className="border-blue-700 text-xl block text-blue-700
+                    hover:border-blue-900 hover:text-blue-700 m-auto">Purchase Your Subscription</Button>
+                </Link>
             </Card>
         </div>
     );
