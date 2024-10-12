@@ -47,7 +47,7 @@ const PurchasePlan = ({plan, className}: Props) => {
                 <Elements stripe={stripePromise} options={{
                     clientSecret: clientSecret
                 }}>
-                    <CheckoutForm setShow={setShowCheckout} show={showCheckout}/>
+                    <CheckoutForm plan={plan} setShow={setShowCheckout} show={showCheckout}/>
                 </Elements>
             )}
         </>

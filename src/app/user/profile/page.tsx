@@ -7,6 +7,7 @@ import SectionTitle from "@/app/user/profile/_components/sectionTitle";
 import {Avatar, Button} from "@nextui-org/react";
 import UploadAvatar from "@/app/user/profile/_components/uploadAvatar";
 import Link from "next/link";
+import prisma from "@/lib/prisma";
 
 interface IAttribute {
     title: string
@@ -19,6 +20,18 @@ const ProfilePage = async () => {
     const user: KindeUser<any> | null = await getUser();
     const dbUser = await getUserById(user ? user.id : '');
 
+
+    const userSubscriptions = await prisma.subscriptions.findFirst({
+        where: {
+            userId: dbUser?.id
+        },
+        include: {
+            plan: true
+        },
+        orderBy: {
+            createdAt: "desc"
+        }
+    })
 
     return (
         <div>
@@ -40,6 +53,17 @@ const ProfilePage = async () => {
             </Card>
             <Card className="p-4 m-4">
                <SectionTitle title="Subscription Details" />
+
+                {
+                    userSubscriptions ?(<div className="pt-10 pb-3">
+                        <Attribute title="Plan" value={userSubscriptions.plan.name}/>
+                        <Attribute title="Price" value={userSubscriptions.plan.price}/>
+                        <Attribute title="Purchased On" value={userSubscriptions.createdAt.toLocaleDateString()}/>
+                    </div>) : (<div className="flex flex-col items-center pt-10 pb-3">
+                        <p className="text-center text-slate-700 text-xl">No Subscription Found!</p>
+                    </div>)
+                }
+
                 <Link href="/user/subscriptions/" className="mt-5 mb-5">
                     <Button variant="bordered" className="border-blue-700 text-xl block text-blue-700
                     hover:border-blue-900 hover:text-blue-700 m-auto">Purchase Your Subscription</Button>

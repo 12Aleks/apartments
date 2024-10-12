@@ -1,11 +1,16 @@
-import {Button, Modal, ModalBody, ModalContent, ModalHeader} from "@nextui-org/react";
+import {Button, Modal, ModalBody, ModalContent, ModalHeader, user} from "@nextui-org/react";
 import {AddressElement, PaymentElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import {FormEvent, useState} from "react";
 import {toast} from "react-toastify";
+import {saveSubscription} from "@/lib/actions/subscription";
+import {SubscriptionPlan} from "@prisma/client";
+import {useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
+import {useRouter} from "next/navigation";
 
 interface Props {
     show: boolean;
     setShow: (show: boolean) => void;
+    plan: SubscriptionPlan;
 }
 
 
@@ -13,6 +18,11 @@ const CheckoutForm = (props: Props) => {
     const [isLoading, setIsLoading] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
+    const {user} = useKindeBrowserClient();
+    const router = useRouter();
+
+    if(!user) return;
+
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -29,7 +39,14 @@ const CheckoutForm = (props: Props) => {
            if(result.error){
                toast.error(result.error.message);
            }else {
-               toast.success("Payment Successful.");
+               await saveSubscription({
+                   paymentId: result.paymentIntent.id,
+                   planId: props.plan.id,
+                   userId: user?.id,
+
+               })
+               toast.success("Payment Successful!");
+               router.push('/user/profile')
            }
         } catch (error) {
             console.error(error);
