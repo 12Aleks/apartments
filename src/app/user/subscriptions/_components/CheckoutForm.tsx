@@ -32,7 +32,7 @@ const CheckoutForm = (props: Props) => {
 
            const result =  await stripe?.confirmPayment({
                 elements, confirmParams: {
-                    return_url: 'http://localhost:3000/user/profile'
+                    return_url: 'https://apartments-pied.vercel.app/user/profile'
                 },
                 redirect: 'if_required'
             });
