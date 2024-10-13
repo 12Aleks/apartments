@@ -23,6 +23,9 @@ export async function GET() {
          where: {
             id: user.id,
          }
+      }).catch(prismaError => {
+         console.error("Error fetching user from database:", prismaError);
+         throw new Error("Database query failed");
       });
 
       if (!dbUser) {
