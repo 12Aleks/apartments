@@ -1,14 +1,13 @@
-import { ReactNode } from 'react';
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
-import { LayoutProps } from "framer-motion";
+import React, { ReactNode } from "react";
 
-interface IProps extends Partial<LayoutProps> {
-    children?: ReactNode;
-    modalDelete?: ReactNode;
+interface Props {
+    children: ReactNode;
+    modalDelete: ReactNode;
 }
 
-const UnitsLayout = ({children, modalDelete = null}: IProps) => {
+const UnitsLayout = ({ children, modalDelete }: Props) => {
     return (
         <div>
             <div className="bg-primary-400 flex justify-between items-center p-2">
