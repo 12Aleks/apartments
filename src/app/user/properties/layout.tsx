@@ -3,12 +3,12 @@ import {Button} from "@nextui-org/react";
 import Link from "next/link";
 import {LayoutProps} from "framer-motion";
 
-interface IProps extends LayoutProps{
+interface IProps extends Omit<LayoutProps, 'modalDelete'> {
     children?: ReactNode;
     modalDelete?: ReactNode;
 }
 
-const UnitsLayout = ({children, modalDelete}: IProps) => {
+const UnitsLayout = ({children, modalDelete = null}: IProps) => {
     return (
         <div>
             <div className="bg-primary-400 flex justify-between items-center p-2">
