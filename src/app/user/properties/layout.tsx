@@ -1,9 +1,8 @@
 import {ReactNode} from 'react';
 import {Button} from "@nextui-org/react";
 import Link from "next/link";
-import {LayoutProps} from "framer-motion";
 
-interface IProps extends Omit<LayoutProps, 'modalDelete'> {
+interface IProps {
     children?: ReactNode;
     modalDelete?: ReactNode;
 }
