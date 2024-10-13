@@ -3,9 +3,17 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
 export async function GET() {
+
    try {
+      let user;
+      try {
       const { getUser } = await getKindeServerSession();
-      const user = await getUser();
+      user = await getUser();
+
+      } catch (sessionError) {
+         console.error("Error retrieving user session:", sessionError);
+         return NextResponse.json({ success: false, error: "Session retrieval failed" }, { status: 500 });
+      }
 
       if (!user || !user.id) {
          throw new Error('No user found: ' + JSON.stringify(user));
