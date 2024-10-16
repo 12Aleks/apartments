@@ -5,19 +5,19 @@ import { NextResponse } from "next/server";
 export async function GET() {
 
    try {
-      let user;
-      try {
-      const { getUser } = await getKindeServerSession();
-      user = await getUser();
+       const session = await getKindeServerSession();
 
-      } catch (sessionError) {
-         console.error("Error retrieving user session:", sessionError);
-         return NextResponse.json({ success: false, error: "Session retrieval failed" }, { status: 500 });
-      }
+       if (!session) {
+           console.error("No session found");
+           return NextResponse.json({ success: false, error: "Session not found" }, { status: 401 });
+       }
 
-      if (!user || !user.id) {
-         throw new Error('No user found: ' + JSON.stringify(user));
-      }
+       const user = await session.getUser();
+
+       if (!user) {
+           console.error("No user data found in session");
+           return NextResponse.json({ success: false, error: "User data missing" }, { status: 401 });
+       }
 
       const dbUser = await prisma.user.findUnique({
          where: {

@@ -8,6 +8,7 @@ import {Avatar, Button} from "@nextui-org/react";
 import UploadAvatar from "@/app/user/profile/_components/uploadAvatar";
 import Link from "next/link";
 import prisma from "@/lib/prisma";
+import {NextResponse} from "next/server";
 
 interface IAttribute {
     title: string
@@ -15,9 +16,21 @@ interface IAttribute {
 }
 
 const ProfilePage = async () => {
-    const {getUser} = await getKindeServerSession();
+    const session = await getKindeServerSession();
 
-    const user: KindeUser<any> | null = await getUser();
+    if (!session) {
+        console.error("No session found");
+        return NextResponse.json({ success: false, error: "Session not found" }, { status: 401 });
+    }
+
+    const user: KindeUser<any> | null = await session.getUser();
+
+    if (!user) {
+        console.error("No user data found in session");
+        return NextResponse.json({ success: false, error: "User data missing" }, { status: 401 });
+    }
+
+
     const dbUser = await getUserById(user ? user.id : '');
 
 

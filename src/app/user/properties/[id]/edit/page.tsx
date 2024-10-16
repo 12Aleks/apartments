@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import AddPropertyForm from "@/app/user/properties/add/_components/AddPropertyForm";
 import {notFound, redirect} from "next/navigation";
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
+import {NextResponse} from "next/server";
 
 interface Props {
     params: {
@@ -28,8 +29,19 @@ const EditPropertyPage = async ({params}: Props) => {
 
     const [propertyTypes, propertyStatus, property] = await Promise.all([propertyTypeData, propertyStatusData ,propertyData]);
 
-    const {getUser} = getKindeServerSession();
-    const user = await getUser();
+    const session = await getKindeServerSession();
+
+    if (!session) {
+        console.error("No session found");
+        return NextResponse.json({ success: false, error: "Session not found" }, { status: 401 });
+    }
+
+    const user = await session.getUser();
+
+    if (!user) {
+        console.error("No user data found in session");
+        return NextResponse.json({ success: false, error: "User data missing" }, { status: 401 });
+    }
 
     if(!property) return notFound();
     if(!user || property.userId !== user.id) redirect("/unauthorized");
