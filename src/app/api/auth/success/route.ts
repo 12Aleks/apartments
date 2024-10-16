@@ -8,7 +8,7 @@ export async function GET() {
        const session = await getKindeServerSession();
 
        if (!session) {
-           console.error("No session found");
+           console.error("No session found!");
            return NextResponse.json({ success: false, error: "Session not found" }, { status: 401 });
        }
 
