@@ -37,12 +37,13 @@ export async function GET() {
                email: user.email ?? "",
             },
          });
-
-         return NextResponse.redirect("https://apartments-pied.vercel.app/");
+          // http://localhost:3000
+          // https://apartments-pied.vercel.app/
+         return NextResponse.redirect("https://apartments-pied.vercel.app");
       }
 
       // If the user already exists in the database, you can return a redirect or a success message.
-      return NextResponse.redirect("https://apartments-pied.vercel.app/");
+      return NextResponse.redirect("https://apartments-pied.vercel.app");
 
    } catch (error) {
       console.error("Error in /api/auth/success:", error);
