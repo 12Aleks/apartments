@@ -11,7 +11,9 @@ interface IProps {
 const PictureCard = ({src, key, onDelete, index}: IProps) => {
     return (
         <Card key={key} className="p-1 mr-2 relative">
-            <Image src={src}  className="w-36 h-36 object-contain bg-gray-200"/>
+            <Image src={src}
+                   alt="Uploaded picture"
+                   className="w-36 h-36 object-contain bg-gray-200"/>
             <button
                 onClick={() => onDelete(index)}
                 className="absolute top-0 right-0 z-10 rounded-full bg-gray-300 border border-gray-400">

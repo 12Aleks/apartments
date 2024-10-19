@@ -29,14 +29,8 @@ const EditPropertyPage = async ({params}: Props) => {
 
     const [propertyTypes, propertyStatus, property] = await Promise.all([propertyTypeData, propertyStatusData ,propertyData]);
 
-    const session = await getKindeServerSession();
-
-    if (!session) {
-        console.error("No session found");
-        return NextResponse.json({ success: false, error: "Session not found" }, { status: 401 });
-    }
-
-    const user = await session.getUser();
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
 
     if (!user) {
         console.error("No user data found in session");
@@ -48,7 +42,6 @@ const EditPropertyPage = async ({params}: Props) => {
 
     return (
         <AddPropertyForm types={propertyTypes} statuses={propertyStatus} property={property} isEdit={true} />
-
     );
 };
 

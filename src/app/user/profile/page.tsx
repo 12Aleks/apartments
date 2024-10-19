@@ -1,6 +1,5 @@
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {getUserById} from "@/lib/actions/user";
-import {KindeUser} from "@kinde-oss/kinde-auth-nextjs/types";
 import PageTitle from "@/app/components/pageTitle";
 import {Card} from "@nextui-org/card";
 import SectionTitle from "@/app/user/profile/_components/sectionTitle";
@@ -9,27 +8,21 @@ import UploadAvatar from "@/app/user/profile/_components/uploadAvatar";
 import Link from "next/link";
 import prisma from "@/lib/prisma";
 import {NextResponse} from "next/server";
+import { ReactNode } from "react";
 
 interface IAttribute {
     title: string
-    value: React.ReactNode
+    value: ReactNode
 }
 
 const ProfilePage = async () => {
-    const session = await getKindeServerSession();
-
-    if (!session) {
-        console.error("No session found");
-        return NextResponse.json({ success: false, error: "Session not found" }, { status: 401 });
-    }
-
-    const user: KindeUser<any> | null = await session.getUser();
+    const { getUser } = await getKindeServerSession();
+    const user = await getUser();
 
     if (!user) {
         console.error("No user data found in session");
         return NextResponse.json({ success: false, error: "User data missing" }, { status: 401 });
     }
-
 
     const dbUser = await getUserById(user ? user.id : '');
 

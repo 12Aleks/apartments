@@ -34,7 +34,9 @@ export async function saveProperty(propertyData: AddPropertyInputType, imagesUrl
         }
     });
 
-    return result
+    //OLD
+    // return result
+    return JSON.parse(JSON.stringify(result));
 }
 
 export async function editProperty(propertyId: number, propertyData: AddPropertyInputType, newImagesUrls: string[], deletedImageIds: number[]) {
@@ -75,8 +77,9 @@ export async function editProperty(propertyId: number, propertyData: AddProperty
           }
       }
   });
-
-    return result
+    //OLD
+    // return result
+    return JSON.parse(JSON.stringify(result));
 }
 
 
@@ -86,6 +89,7 @@ export async function deleteProperty(id: number) {
             id
         }
     })
-
-    return result
+//OLD
+    // return result
+    return JSON.parse(JSON.stringify(result));
 }

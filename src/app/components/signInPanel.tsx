@@ -1,6 +1,5 @@
 import {
     LoginLink,
-    LogoutLink,
     RegisterLink,
     getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -8,6 +7,7 @@ import { Button } from "@nextui-org/react";
 import React from "react";
 import UserProfilePanel from "./UserProfilePanel";
 import {getUserById} from "@/lib/actions/user";
+
 
 const signInPanel = async () => {
     const { isAuthenticated, getUser } = await getKindeServerSession();
