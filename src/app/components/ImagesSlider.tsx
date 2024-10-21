@@ -150,7 +150,7 @@ export const ImagesSlider = ({
             {/* Left Arrow */}
             <button
                 onClick={handlePrevious}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 bg-black/50 hover:bg-black/30 transition-background text-white w-10 h-10 rounded-full"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 bg-black/50 hover:bg-black/30 transition-background text-whitecd  w-10 h-10 rounded-full"
             >
                 &#8592;
             </button>

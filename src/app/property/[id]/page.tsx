@@ -37,7 +37,7 @@ const PropertyPage = async ({params}: Props) => {
     });
 
     if (!property) return notFound()
-    console.log("Leng", property.location?.lat!! , property.location?.lng!!)
+
     return (
         <div>
             <PageTitle title={"Property Page"} href='/' linkCaption={"Back to Properties"}/>
