@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Head from 'next/head'
 import {ReactNode} from "react";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -23,8 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
+    <Head>
+        <meta charSet="utf-8"/>
+        <title>Apartments - Home page </title>
+        <link rel="manifest" href="/favicon/manifest.json"/>
+        <meta name="description" content="User Testing"/>
+    </Head>
+    <body className={inter.className}>
+    <Providers>
           <Appbar>
              <SignInPanel />
           </Appbar>
