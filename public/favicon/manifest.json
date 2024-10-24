@@ -1,6 +1,7 @@
 {
- "name": "Apartmnets",
- "short_name": "Apartmnets",
+ "name": "Apartments for you",
+ "short_name": "Apartments",
+ "description": "The Apartments for You app",
  "start_url": "/",
  "display": "standalone",
  "background_color": "#3175f2",

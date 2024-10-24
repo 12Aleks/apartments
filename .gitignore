@@ -46,3 +46,8 @@ Prisma/dev.db-journal
 prisma-query-engine
 prisma/db.sqlite*
 lib/_generated_prisma_client
+
+
+# Auto Generated PWA files
+**/public/sw.js
+**/public/workbox-*.js
