@@ -16,10 +16,9 @@ export default async function Home({searchParams}: Props) {
     const pagenum = searchParams.pagenum ? Number(searchParams.pagenum) : 1;
 
     const query = searchParams.query ?? "";
-    const type = searchParams.type === 'all' ? "" : searchParams.type ?? "";
+    const type = searchParams.type && searchParams.type !== 'all' ? String(searchParams.type) : "";
     const min = searchParams.min ? Number(searchParams.min) : undefined;
     const max = searchParams.max ? Number(searchParams.max) : undefined;
-
 
     const propertiesPromise = prisma.property.findMany({
         select: {
@@ -47,18 +46,16 @@ export default async function Home({searchParams}: Props) {
             ...(!!type && {
                 type: {
                     is: {
-                        value: {
-                            contains: String(type),
-                        },
+                        value: String(type?.charAt(0)?.toUpperCase() + type?.slice(1)),
                     },
                 },
             }),
             price: {
                 ...(min !== undefined && { gte: min }),
                 ...(max !== undefined && { lte: max }),
-            }
+            },
         },
-        skip: (pagenum - 1) * PAGE_SIZE,  // Ensure page 1 starts from 0 index
+        skip: (pagenum - 1) * PAGE_SIZE,
         take: PAGE_SIZE,
     });
 
